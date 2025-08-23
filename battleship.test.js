@@ -1,4 +1,4 @@
-import { Ship, Gameboard } from "./battleship.js";
+import { Ship, Gameboard, Player } from "./battleship.js";
 
 describe("Ship", () => {
   it("Can't create ship without providing length", () => {
@@ -54,27 +54,33 @@ describe("Gameboard", () => {
   beforeEach(() => {
     gameboard = Gameboard();
   });
+
   it("Initially every cell shouldn't be hit", () => {
     expect(gameboard.board.every(row => row.every(cell => cell === 0))).toBeTruthy();
   });
+
   it("Throw error for invalid coordinates", () => {
     expect(() => gameboard.receiveAttack(10, -1)).toThrow("Invalid coordinates!");
   });
+
   it("Throw error for non integer coordinates", () => {
     expect(() => gameboard.receiveAttack("9", 9)).toThrow("Coordinates must be integers!");
     expect(() => gameboard.receiveAttack(4, "5")).toThrow("Coordinates must be integers!");
     expect(() => gameboard.receiveAttack("-1", "10")).toThrow("Coordinates must be integers!");
   });
+
   it("Able to hit an empty cell", () => {
     gameboard.receiveAttack(4, 4);
     expect(gameboard.board[4][4]).toBe(-1);
   });
+
   it("Able to hit a ship", () => {
     // Simulate first ship in coordinates [3,3]
     gameboard.board[3][3] = 1;
     gameboard.receiveAttack(3, 3);
     expect(gameboard.board[3][3]).toBe(-2);
   });
+
   it("Ship hits increased after a hit", () => {
     // Simulate first ship in coordinates [2,2]
     gameboard.board[2][2] = 2;
@@ -84,6 +90,7 @@ describe("Gameboard", () => {
     gameboard.receiveAttack(2, 3);
     expect(gameboard.ships[1].hits).toBe(2);
   });
+
   it("All missed shots are recorded", () => {
     gameboard.receiveAttack(1, 1);
     gameboard.receiveAttack(2, 2);
@@ -94,6 +101,7 @@ describe("Gameboard", () => {
       [3, 3],
     ]);
   });
+
   it("Report when all ships sunk", () => {
     gameboard.board[0][0] = 1;
     gameboard.board[0][2] = 1;
@@ -130,5 +138,37 @@ describe("Gameboard", () => {
     gameboard.receiveAttack(7, 0);
     gameboard.receiveAttack(8, 0);
     expect(gameboard.allShipsSunk).toBeTruthy();
+  });
+});
+
+describe("Player", () => {
+  let player;
+  beforeEach(() => {
+    player = Player("Player-Name");
+  });
+
+  it("Has its own gameboard", () => {
+    expect(player.gameboard.board).toEqual([
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ]);
+  });
+
+  it("Has name", () => {
+    expect(player.name).toBe("Player-Name");
+  });
+
+  it("Throws error if no new name is provided when setting its name", () => {
+    expect(() => {
+      player.name = "";
+    }).toThrow("New name isn't provided");
   });
 });
