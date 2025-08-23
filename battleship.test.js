@@ -1,4 +1,6 @@
-import { Ship, Gameboard, Player } from "./battleship.js";
+import Ship from "./src/ship.js";
+import Gameboard from "./src/gameboard.js";
+import Player from "./src/player.js";
 
 describe("Ship", () => {
   it("Can't create ship without providing length", () => {
