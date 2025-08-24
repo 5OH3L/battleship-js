@@ -141,6 +141,47 @@ describe("Gameboard", () => {
     gameboard.receiveAttack(8, 0);
     expect(gameboard.allShipsSunk).toBeTruthy();
   });
+
+  it("Place ship on the board vertically", () => {
+    gameboard.placeShip([6, 2], 0);
+    expect(gameboard.board[5][2] === 1 && gameboard.board[6][2] === 1).toBeTruthy();
+
+    gameboard.placeShip([6, 3], 1);
+    expect(gameboard.board[4][3] === 2 && gameboard.board[5][3] === 2 && gameboard.board[6][3] === 2).toBeTruthy();
+
+    gameboard.placeShip([6, 4], 3);
+    expect(
+      gameboard.board[3][4] === 4 &&
+        gameboard.board[4][4] === 4 &&
+        gameboard.board[5][4] === 4 &&
+        gameboard.board[6][4] === 4
+    ).toBeTruthy();
+  });
+
+  it("Place ship on the board horizontally", () => {
+    gameboard.placeShip([4, 2], 0, true);
+    expect(gameboard.board[4][2] === 1 && gameboard.board[4][3] === 1).toBeTruthy();
+
+    gameboard.placeShip([5, 3], 1, true);
+    expect(gameboard.board[5][3] === 2 && gameboard.board[5][4] === 2 && gameboard.board[5][5] === 2).toBeTruthy();
+
+    gameboard.placeShip([6, 4], 3, true);
+    expect(
+      gameboard.board[6][4] === 4 &&
+        gameboard.board[6][5] === 4 &&
+        gameboard.board[6][6] === 4 &&
+        gameboard.board[6][7] === 4
+    ).toBeTruthy();
+  });
+
+  it("Throw error if the ship has already been placed", () => {
+    gameboard.placeShip([4, 0], 1, true);
+    expect(() => gameboard.placeShip([5, 5], 1)).toThrow("The ship has been placed already!");
+  });
+  it("Throw error if there is already a ship on the placing cells", () => {
+    gameboard.placeShip([5, 0], 0, true);
+    expect(() => gameboard.placeShip([7, 0], 1)).toThrow("Occupied cells");
+  });
 });
 
 describe("Player", () => {

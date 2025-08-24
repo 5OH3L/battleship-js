@@ -52,6 +52,38 @@ function Gameboard() {
       console.info("All ships sunk");
     }
   }
+  function placeShip(coordinates, shipIndex, isHorizontal = false) {
+    const [x, y] = coordinates;
+    if (isHorizontal) {
+      const horizontalPlacementCells = [];
+      for (let i = 0; i < ships[shipIndex].length; i++) horizontalPlacementCells.push([x, y + i]);
+      if (board.some(row => row.some(cell => cell === shipIndex + 1)))
+        throw new Error("The ship has been placed already!");
+      else if (
+        horizontalPlacementCells.some(cell => [1, 2, 3, 4, 5].some(shipIndex => board[cell[0]][cell[1]] === shipIndex))
+      )
+        throw new Error("Occupied cells");
+      else {
+        horizontalPlacementCells.forEach(cell => {
+          board[cell[0]][cell[1]] = shipIndex + 1;
+        });
+      }
+    } else {
+      const verticalPlacementCells = [];
+      for (let i = 0; i < ships[shipIndex].length; i++) verticalPlacementCells.push([x - i, y]);
+      if (board.some(row => row.some(cell => cell === shipIndex + 1)))
+        throw new Error("The ship has been placed already!");
+      else if (
+        verticalPlacementCells.some(cell => [1, 2, 3, 4, 5].some(shipIndex => board[cell[0]][cell[1]] === shipIndex))
+      )
+        throw new Error("Occupied cells");
+      else {
+        verticalPlacementCells.forEach(cell => {
+          board[cell[0]][cell[1]] = shipIndex + 1;
+        });
+      }
+    }
+  }
   return {
     get board() {
       return board;
@@ -66,6 +98,7 @@ function Gameboard() {
     get allShipsSunk() {
       return areAllShipsSunk();
     },
+    placeShip,
   };
 }
 
