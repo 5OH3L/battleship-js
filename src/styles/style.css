@@ -56,14 +56,21 @@ h2 {
   transition: background-color 0.3s ease;
   cursor: default;
 }
-.cell:not(.shot){
+.board-container:not(.disabled) > .cell {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.board-container:not(.disabled) > .cell:not(.shot) {
   cursor: pointer;
 }
-.cell.shot::before,
-.cell.shot::after {
+.board-container:not(.disabled) > .cell:not(.shot):hover {
+  border-color: skyblue;
+  background-color: rgb(135, 206, 235, 0.5);
+}
+.board-container:not(.disabled) > .cell.shot::before,
+.board-container:not(.disabled) > .cell.shot::after {
   opacity: 1;
 }
-.cell.shot.ship {
+.board-container:not(.disabled) > .cell.shot.ship {
   background-color: rgba(255, 0, 0, 0.5);
 }
 

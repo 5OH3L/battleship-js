@@ -35,6 +35,14 @@ function renderBoard(player, DOMBoard) {
         if (cell.dataset.shot === "") return;
         player.gameboard.receiveAttack(i, j);
         refreshCells(player, [cell]);
+        if (player.gameboard.board[i][j] === -1) {
+          isPlayerTurn = !isPlayerTurn;
+          disableBoards();
+          setTimeout(() => {
+            displayTurn(isPlayerTurn);
+            switchTurn(isPlayerTurn);
+          }, 1000);
+        }
       });
       DOMBoard.appendChild(cell);
     }
@@ -50,10 +58,26 @@ function renderComputerBoard(player) {
 function displayTurn(isPlayerTurn) {
   playerTurn.textContent = `${isPlayerTurn ? "Player" : "Computer"}'s Turn`;
 }
+function switchTurn(isPlayerTurn) {
+  if (isPlayerTurn) {
+    playerBoard.classList.add("disabled");
+    computerBoard.classList.remove("disabled");
+    computerBoard.style.pointerEvents = "all";
+  } else {
+    computerBoard.classList.add("disabled");
+    playerBoard.classList.remove("disabled");
+    playerBoard.style.pointerEvents = "all";
+  }
+}
+function disableBoards() {
+  playerBoard.style.pointerEvents = "none";
+  computerBoard.style.pointerEvents = "none";
+}
 
 function startGame() {
   isPlayerTurn = Math.random() < 0.5;
   displayTurn(isPlayerTurn);
+  switchTurn(isPlayerTurn);
 }
 
 const DOM = {
