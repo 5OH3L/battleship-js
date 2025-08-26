@@ -101,11 +101,9 @@ function renderBoards(player1, player2, player1DOMBoard, player2DOMBoard) {
           } else if (player.gameboard.board[i][j] === -1) {
             isPlayerTurn = !isPlayerTurn;
             computerBoard.style.pointerEvents = "none";
-            setTimeout(() => {
-              displayTurn(isPlayerTurn);
-              switchTurn(isPlayerTurn);
-              if (!isPlayerTurn) computerShoot(player1, player2);
-            }, 1000);
+            displayTurn(isPlayerTurn);
+            switchTurn(isPlayerTurn);
+            if (!isPlayerTurn) computerShoot(player1, player2);
           }
         });
         DOMBoard.appendChild(cell);
@@ -130,10 +128,8 @@ function computerShoot(player, computer) {
   if (player.gameboard.board[attackX][attackY] === -1) {
     isPlayerTurn = !isPlayerTurn;
     computerBoard.style.pointerEvents = "none";
-    setTimeout(() => {
-      displayTurn(isPlayerTurn);
-      switchTurn(isPlayerTurn);
-    }, 1000);
+    displayTurn(isPlayerTurn);
+    switchTurn(isPlayerTurn);
   } else computerShoot(player, computer);
 }
 
