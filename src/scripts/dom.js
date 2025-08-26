@@ -4,19 +4,12 @@ function initializePlayers() {
   const player = Player("Player");
   const computer = Player("Computer");
 
-  // Populate player's gameboard
-  player.gameboard.placeShip([1, 1], 0, true);
-  player.gameboard.placeShip([5, 3], 1);
-  player.gameboard.placeShip([5, 5], 2);
-  player.gameboard.placeShip([7, 3], 3, true);
-  player.gameboard.placeShip([7, 8], 4);
-
   // Populate computer's gameboard
-  computer.gameboard.placeShip([3, 9], 0);
-  computer.gameboard.placeShip([6, 7], 1);
-  computer.gameboard.placeShip([8, 3], 2, true);
-  computer.gameboard.placeShip([4, 2], 3, true);
-  computer.gameboard.placeShip([1, 1], 4, true);
+  computer.gameboard.placeShip([3, 9], 1);
+  computer.gameboard.placeShip([6, 7], 2);
+  computer.gameboard.placeShip([8, 3], 3, true);
+  computer.gameboard.placeShip([4, 2], 4, true);
+  computer.gameboard.placeShip([1, 1], 5, true);
   return [player, computer];
 }
 
@@ -39,8 +32,9 @@ function init() {
   messageAcionButton.addEventListener("click", () => {
     messageContainer.classList.remove("show");
     [player, computer] = initializePlayers();
-    startGame();
   });
+  renderBoards(player, computer, playerBoard, computerBoard);
+  computerBoard.style.pointerEvents = "none";
 }
 
 function refreshCells(player, cells) {
