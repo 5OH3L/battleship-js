@@ -33,8 +33,30 @@ function init() {
     messageContainer.classList.remove("show");
     [player, computer] = initializePlayers();
   });
-  renderBoards(player, computer, playerBoard, computerBoard);
+  renderBoards(player, playerBoard, computer, computerBoard);
   computerBoard.style.pointerEvents = "none";
+  window.placeShip = function (coordinates, shipNumber, isHorizontal) {
+    player.gameboard.placeShip(coordinates, shipNumber, isHorizontal);
+    renderBoards(player, playerBoard);
+  };
+  window.startGame = function () {
+    const allPlayerPlacedShipNumbers = getAllPlacedShipNumbers(player.gameboard.board);
+    const allComputerPlacedShipNumbers = getAllPlacedShipNumbers(computer.gameboard.board);
+    player.gameboard.board;
+    if (allPlayerPlacedShipNumbers.length === 5 && allComputerPlacedShipNumbers.length === 5) {
+      startGame();
+    } else {
+      throw new Error("All ships must be placed to start the game!");
+    }
+  };
+}
+
+function getAllPlacedShipNumbers(board) {
+  const allPlacedShipNumbers = new Set();
+  for (let i = 0; i < board.length; i++)
+    for (let j = 0; j < board[i].length; j++)
+      if ([1, 2, 3, 4, 5].includes(board[i][j])) allPlacedShipNumbers.add(board[i][j]);
+  return [...allPlacedShipNumbers];
 }
 
 function refreshCells(player, cells) {
@@ -63,9 +85,9 @@ function showMessage(title, text, buttonText, player1Name = null, player2Name = 
   messageAcionButton.textContent = buttonText;
 }
 
-function renderBoards(player1, player2, player1DOMBoard, player2DOMBoard) {
-  renderPlayerBoard(player1, player1DOMBoard);
-  renderPlayerBoard(player2, player2DOMBoard);
+function renderBoards(player1, player1DOMBoard, player2, player2DOMBoard) {
+  if (player1) renderPlayerBoard(player1, player1DOMBoard);
+  if (player2) renderPlayerBoard(player2, player2DOMBoard);
   function renderPlayerBoard(player, DOMBoard) {
     DOMBoard.innerHTML = "";
     for (let i = 0; i < player.gameboard.board.length; i++) {
@@ -142,8 +164,9 @@ function switchTurn(isPlayerTurn) {
   }
 }
 
-function startGame() {
-  renderBoards(player, computer, playerBoard, computerBoard);
+function startGame(player, playerBoard, computer, computerBoard) {
+  if (player) renderBoards(player, playerBoard);
+  if (computer) renderBoards(computer, computerBoard);
   isPlayerTurn = Math.random() < 0.5;
   displayTurn(isPlayerTurn);
   switchTurn(isPlayerTurn);
