@@ -86,8 +86,8 @@ function showMessage(title, text, buttonText, player1Name = null, player2Name = 
 }
 
 function renderBoards(player1, player1DOMBoard, player2, player2DOMBoard) {
-  if (player1) renderPlayerBoard(player1, player1DOMBoard);
-  if (player2) renderPlayerBoard(player2, player2DOMBoard);
+  if (player1 && player1DOMBoard) renderPlayerBoard(player1, player1DOMBoard);
+  if (player2 && player2DOMBoard) renderPlayerBoard(player2, player2DOMBoard);
   function renderPlayerBoard(player, DOMBoard) {
     DOMBoard.innerHTML = "";
     for (let i = 0; i < player.gameboard.board.length; i++) {
@@ -104,24 +104,26 @@ function renderBoards(player1, player1DOMBoard, player2, player2DOMBoard) {
         }
         cell.dataset.row = i;
         cell.dataset.column = j;
-        cell.addEventListener("click", () => {
-          if (cell.dataset.shot === "") return;
-          player.gameboard.receiveAttack(i, j);
-          refreshCells(player, [cell]);
-          const gameOver = isGameOver(player, computer);
-          if (gameOver) {
-            gameOver === 1
-              ? showMessage("Game Over!", "has sunk all of the ships of", "Restart", player1.name, player2.name)
-              : showMessage("Game Over!", "has sunk all of the ships of", "Restart", player2.name, player1.name);
-            return;
-          } else if (player.gameboard.board[i][j] === -1) {
-            isPlayerTurn = !isPlayerTurn;
-            computerBoard.style.pointerEvents = "none";
-            displayTurn(isPlayerTurn);
-            switchTurn(isPlayerTurn);
-            if (!isPlayerTurn) computerShoot(player1, player2);
-          }
-        });
+        if (player.name.toLowerCase() !== "computer") {
+          cell.addEventListener("click", () => {
+            if (cell.dataset.shot === "") return;
+            player.gameboard.receiveAttack(i, j);
+            refreshCells(player, [cell]);
+            const gameOver = isGameOver(player, computer);
+            if (gameOver) {
+              gameOver === 1
+                ? showMessage("Game Over!", "has sunk all of the ships of", "Restart", player1.name, player2.name)
+                : showMessage("Game Over!", "has sunk all of the ships of", "Restart", player2.name, player1.name);
+              return;
+            } else if (player.gameboard.board[i][j] === -1) {
+              isPlayerTurn = !isPlayerTurn;
+              computerBoard.style.pointerEvents = "none";
+              displayTurn(isPlayerTurn);
+              switchTurn(isPlayerTurn);
+              if (!isPlayerTurn) computerShoot(player1, player2);
+            }
+          });
+        }
         DOMBoard.appendChild(cell);
       }
     }
@@ -165,8 +167,8 @@ function switchTurn(isPlayerTurn) {
 }
 
 function startGame(player, playerBoard, computer, computerBoard) {
-  if (player) renderBoards(player, playerBoard);
-  if (computer) renderBoards(computer, computerBoard);
+  if (player && playerBoard) renderBoards(player, playerBoard);
+  if (computer && computerBoard) renderBoards(computer, computerBoard);
   isPlayerTurn = Math.random() < 0.5;
   displayTurn(isPlayerTurn);
   switchTurn(isPlayerTurn);
