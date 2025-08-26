@@ -39,7 +39,11 @@ function init() {
   setTimeout(() => {
     document.getElementById("message-container").removeAttribute("style");
   }, 500);
-  messageAcionButton.addEventListener("click", () => messageContainer.classList.remove("show"));
+  messageAcionButton.addEventListener("click", () => {
+    messageContainer.classList.remove("show");
+    [player, computer] = initializePlayers();
+    startGame();
+  });
 }
 
 function refreshCells(player, cells) {
