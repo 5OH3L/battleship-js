@@ -80,8 +80,8 @@ h2 {
 .cell::after {
   position: absolute;
   content: "";
-  height: 1.8rem;
-  width: 0.2rem;
+  height: 90%;
+  width: 10%;
   background-color: red;
   border-radius: 0.4rem;
   opacity: 0;
