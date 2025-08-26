@@ -182,6 +182,11 @@ describe("Gameboard", () => {
     gameboard.placeShip([5, 0], 0, true);
     expect(() => gameboard.placeShip([7, 0], 1)).toThrow("Occupied cells");
   });
+
+  it("Prevent ship from placing off board", () => {
+    expect(() => gameboard.placeShip([1, 0], 1)).toThrow("Can't place ship off board");
+    expect(() => gameboard.placeShip([2, 1], 2)).not.toThrow("Can't place ship off board");
+  });
 });
 
 describe("Player", () => {

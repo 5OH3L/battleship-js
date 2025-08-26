@@ -57,7 +57,15 @@ function Gameboard() {
     if (isHorizontal) {
       const horizontalPlacementCells = [];
       for (let i = 0; i < ships[shipIndex].length; i++) horizontalPlacementCells.push([x, y + i]);
-      if (board.some(row => row.some(cell => cell === shipIndex + 1)))
+      if (
+        horizontalPlacementCells.some(coordinates => {
+          const x = coordinates[0];
+          const y = coordinates[1];
+          return x > 10 || x < 0 || y > 10 || y < 0;
+        })
+      )
+        throw new Error("Can't place ship off board");
+      else if (board.some(row => row.some(cell => cell === shipIndex + 1)))
         throw new Error("The ship has been placed already!");
       else if (
         horizontalPlacementCells.some(cell => [1, 2, 3, 4, 5].some(shipIndex => board[cell[0]][cell[1]] === shipIndex))
@@ -71,7 +79,15 @@ function Gameboard() {
     } else {
       const verticalPlacementCells = [];
       for (let i = 0; i < ships[shipIndex].length; i++) verticalPlacementCells.push([x - i, y]);
-      if (board.some(row => row.some(cell => cell === shipIndex + 1)))
+      if (
+        verticalPlacementCells.some(coordinates => {
+          const x = coordinates[0];
+          const y = coordinates[1];
+          return x > 10 || x < 0 || y > 10 || y < 0;
+        })
+      )
+        throw new Error("Can't place ship off board");
+      else if (board.some(row => row.some(cell => cell === shipIndex + 1)))
         throw new Error("The ship has been placed already!");
       else if (
         verticalPlacementCells.some(cell => [1, 2, 3, 4, 5].some(shipIndex => board[cell[0]][cell[1]] === shipIndex))
