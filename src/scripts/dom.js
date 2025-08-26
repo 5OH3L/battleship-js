@@ -104,7 +104,7 @@ function renderBoards(player1, player1DOMBoard, player2, player2DOMBoard) {
         }
         cell.dataset.row = i;
         cell.dataset.column = j;
-        if (player.name.toLowerCase() !== "computer") {
+        if (player.name.toLowerCase() === "computer") {
           cell.addEventListener("click", () => {
             if (cell.dataset.shot === "") return;
             player.gameboard.receiveAttack(i, j);
