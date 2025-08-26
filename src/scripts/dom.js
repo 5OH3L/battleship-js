@@ -44,7 +44,7 @@ function init() {
     const allComputerPlacedShipNumbers = getAllPlacedShipNumbers(computer.gameboard.board);
     player.gameboard.board;
     if (allPlayerPlacedShipNumbers.length === 5 && allComputerPlacedShipNumbers.length === 5) {
-      startGame();
+      startGame(player, null, computer, null);
     } else {
       throw new Error("All ships must be placed to start the game!");
     }
