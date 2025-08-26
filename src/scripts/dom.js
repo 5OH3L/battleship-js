@@ -6,6 +6,12 @@ const playerTurn = document.getElementById("player-turn");
 
 let isPlayerTurn;
 
+function init() {
+  setTimeout(() => {
+    document.getElementById("message-container").removeAttribute("style");
+  }, 500);
+}
+
 function refreshCells(player, cells) {
   cells.forEach(cell => {
     const board = player.gameboard.board;
@@ -98,6 +104,7 @@ function startGame() {
 
 const DOM = {
   startGame,
+  init,
 };
 
 export default DOM;
