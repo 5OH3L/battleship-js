@@ -32,6 +32,7 @@ function init() {
   messageAcionButton.addEventListener("click", () => {
     messageContainer.classList.remove("show");
     [player, computer] = initializePlayers();
+    renderBoards(player, playerBoard, computer, computerBoard);
   });
   renderBoards(player, playerBoard, computer, computerBoard);
   computerBoard.style.pointerEvents = "none";
