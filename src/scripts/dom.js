@@ -3,6 +3,10 @@ import { computer, player } from "../../battleship";
 const playerBoard = document.getElementById("player-board");
 const computerBoard = document.getElementById("computer-board");
 const playerTurn = document.getElementById("player-turn");
+const messageContainer = document.getElementById("message-container");
+const messageTitle = document.getElementById("message-title");
+const messageText = document.getElementById("message-text");
+const messageAcionButton = document.getElementById("message-action");
 
 let isPlayerTurn;
 
@@ -10,6 +14,7 @@ function init() {
   setTimeout(() => {
     document.getElementById("message-container").removeAttribute("style");
   }, 500);
+  messageAcionButton.addEventListener("click", () => messageContainer.classList.remove("show"));
 }
 
 function refreshCells(player, cells) {
@@ -21,6 +26,21 @@ function refreshCells(player, cells) {
       cell.classList.add("shot");
     }
   });
+}
+
+function isGameOver(player1, player2) {
+  if (player1.gameboard.allShipsSunk) return player1;
+  if (player2.gameboard.allShipsSunk) return player2;
+  return false;
+}
+
+function showMessage(title, text, buttonText, player1Name = null, player2Name = null) {
+  messageContainer.classList.add("show");
+  messageTitle.textContent = title;
+  if (player1Name && player2Name) {
+    messageText.innerHTML = `<strong>${player1Name}</strong> ${text} <strong>${player2Name}</strong>.`;
+  } else messageText.textContent = text;
+  messageAcionButton.textContent = buttonText;
 }
 
 function renderBoards(player1, player2, player1DOMBoard, player2DOMBoard) {
@@ -46,7 +66,9 @@ function renderBoards(player1, player2, player1DOMBoard, player2DOMBoard) {
           if (cell.dataset.shot === "") return;
           player.gameboard.receiveAttack(i, j);
           refreshCells(player, [cell]);
-          if (player.gameboard.board[i][j] === -1) {
+          if (isGameOver(player1, player2))
+            showMessage("Game Over!", "has sunk all of the ships of", "Restart", player1.name, player2.name);
+          else if (player.gameboard.board[i][j] === -1) {
             isPlayerTurn = !isPlayerTurn;
             computerBoard.style.pointerEvents = "none";
             setTimeout(() => {
