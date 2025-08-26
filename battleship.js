@@ -1,4 +1,3 @@
-import "./src/styles/style.css";
 import Player from "./src/scripts/player.js";
 
 const player = Player("Player");
