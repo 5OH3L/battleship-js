@@ -52,11 +52,11 @@ function Gameboard() {
       console.info("All ships sunk");
     }
   }
-  function placeShip(coordinates, shipIndex, isHorizontal = false) {
+  function placeShip(coordinates, shipNumber, isHorizontal = false) {
     const [x, y] = coordinates;
     if (isHorizontal) {
       const horizontalPlacementCells = [];
-      for (let i = 0; i < ships[shipIndex].length; i++) horizontalPlacementCells.push([x, y + i]);
+      for (let i = 0; i < ships[shipNumber-1].length; i++) horizontalPlacementCells.push([x, y + i]);
       if (
         horizontalPlacementCells.some(coordinates => {
           const x = coordinates[0];
@@ -65,7 +65,7 @@ function Gameboard() {
         })
       )
         throw new Error("Can't place ship off board");
-      else if (board.some(row => row.some(cell => cell === shipIndex + 1)))
+      else if (board.some(row => row.some(cell => cell === shipNumber)))
         throw new Error("The ship has been placed already!");
       else if (
         horizontalPlacementCells.some(cell => [1, 2, 3, 4, 5].some(shipIndex => board[cell[0]][cell[1]] === shipIndex))
@@ -73,12 +73,12 @@ function Gameboard() {
         throw new Error("Occupied cells");
       else {
         horizontalPlacementCells.forEach(cell => {
-          board[cell[0]][cell[1]] = shipIndex + 1;
+          board[cell[0]][cell[1]] = shipNumber;
         });
       }
     } else {
       const verticalPlacementCells = [];
-      for (let i = 0; i < ships[shipIndex].length; i++) verticalPlacementCells.push([x - i, y]);
+      for (let i = 0; i < ships[shipNumber-1].length; i++) verticalPlacementCells.push([x - i, y]);
       if (
         verticalPlacementCells.some(coordinates => {
           const x = coordinates[0];
@@ -87,7 +87,7 @@ function Gameboard() {
         })
       )
         throw new Error("Can't place ship off board");
-      else if (board.some(row => row.some(cell => cell === shipIndex + 1)))
+      else if (board.some(row => row.some(cell => cell === shipNumber)))
         throw new Error("The ship has been placed already!");
       else if (
         verticalPlacementCells.some(cell => [1, 2, 3, 4, 5].some(shipIndex => board[cell[0]][cell[1]] === shipIndex))
@@ -95,7 +95,7 @@ function Gameboard() {
         throw new Error("Occupied cells");
       else {
         verticalPlacementCells.forEach(cell => {
-          board[cell[0]][cell[1]] = shipIndex + 1;
+          board[cell[0]][cell[1]] = shipNumber;
         });
       }
     }
