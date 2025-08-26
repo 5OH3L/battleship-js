@@ -55,8 +55,8 @@ function refreshCells(player, cells) {
 }
 
 function isGameOver(player1, player2) {
-  if (player1.gameboard.allShipsSunk) return player1;
-  if (player2.gameboard.allShipsSunk) return player2;
+  if (player2.gameboard.allShipsSunk) return 1;
+  if (player1.gameboard.allShipsSunk) return 2;
   return false;
 }
 
@@ -92,9 +92,13 @@ function renderBoards(player1, player2, player1DOMBoard, player2DOMBoard) {
           if (cell.dataset.shot === "") return;
           player.gameboard.receiveAttack(i, j);
           refreshCells(player, [cell]);
-          if (isGameOver(player1, player2))
-            showMessage("Game Over!", "has sunk all of the ships of", "Restart", player1.name, player2.name);
-          else if (player.gameboard.board[i][j] === -1) {
+          const gameOver = isGameOver(player, computer);
+          if (gameOver) {
+            gameOver === 1
+              ? showMessage("Game Over!", "has sunk all of the ships of", "Restart", player1.name, player2.name)
+              : showMessage("Game Over!", "has sunk all of the ships of", "Restart", player2.name, player1.name);
+            return;
+          } else if (player.gameboard.board[i][j] === -1) {
             isPlayerTurn = !isPlayerTurn;
             computerBoard.style.pointerEvents = "none";
             setTimeout(() => {
@@ -116,6 +120,13 @@ function computerShoot(player, computer) {
   const cell = document.querySelector(`.row${attackX}.column${attackY}`);
   cell.classList.add("shot");
   refreshCells(player, [cell]);
+  const gameOver = isGameOver(player, computer);
+  if (gameOver) {
+    gameOver === 1
+      ? showMessage("Game Over!", "has sunk all of the ships of", "Restart", player.name, computer.name)
+      : showMessage("Game Over!", "has sunk all of the ships of", "Restart", computer.name, player.name);
+    return;
+  }
   if (player.gameboard.board[attackX][attackY] === -1) {
     isPlayerTurn = !isPlayerTurn;
     computerBoard.style.pointerEvents = "none";
