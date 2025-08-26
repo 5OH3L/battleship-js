@@ -45,7 +45,6 @@ h2 {
   aspect-ratio: 1/1;
   border: 2px solid black;
 }
-
 .cell {
   position: relative;
   display: flex;
@@ -56,21 +55,24 @@ h2 {
   transition: background-color 0.3s ease;
   cursor: default;
 }
-.board-container:not(.disabled) > .cell {
+#player-board {
+  pointer-events: none;
+}
+#computer-board > .cell {
   background-color: rgba(0, 0, 0, 0.1);
 }
-.board-container:not(.disabled) > .cell:not(.shot) {
+#computer-board > .cell:not(.shot) {
   cursor: pointer;
 }
-.board-container:not(.disabled) > .cell:not(.shot):hover {
+#computer-board > .cell:not(.shot):hover {
   border-color: skyblue;
   background-color: rgb(135, 206, 235, 0.5);
 }
-.board-container:not(.disabled) > .cell.shot::before,
-.board-container:not(.disabled) > .cell.shot::after {
+.board-container > .cell.shot::before,
+.board-container > .cell.shot::after {
   opacity: 1;
 }
-.board-container:not(.disabled) > .cell.shot.ship {
+#container > main .board-container > .cell.shot.ship {
   background-color: rgba(255, 0, 0, 0.5);
 }
 
