@@ -10,7 +10,6 @@ function initializePlayers() {
   player.gameboard.placeShip([5, 5], 2);
   player.gameboard.placeShip([7, 3], 3, true);
   player.gameboard.placeShip([7, 8], 4);
-  console.table(player.gameboard.board);
 
   // Populate computer's gameboard
   computer.gameboard.placeShip([3, 9], 0);
@@ -18,12 +17,10 @@ function initializePlayers() {
   computer.gameboard.placeShip([8, 3], 2, true);
   computer.gameboard.placeShip([4, 2], 3, true);
   computer.gameboard.placeShip([1, 1], 4, true);
-  console.table(computer.gameboard.board);
   return [player, computer];
 }
 
 let [player, computer] = initializePlayers();
-console.log(player, computer);
 
 const playerBoard = document.getElementById("player-board");
 const computerBoard = document.getElementById("computer-board");
@@ -118,7 +115,6 @@ function computerShoot(player, computer) {
   player.gameboard.receiveAttack(attackX, attackY);
   const cell = document.querySelector(`.row${attackX}.column${attackY}`);
   cell.classList.add("shot");
-  console.log(cell);
   refreshCells(player, [cell]);
   if (player.gameboard.board[attackX][attackY] === -1) {
     isPlayerTurn = !isPlayerTurn;
