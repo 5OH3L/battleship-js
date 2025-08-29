@@ -15,11 +15,14 @@ function initializePlayers() {
 
 let [player, computer] = initializePlayers();
 
+const container = document.getElementById("container");
 const playerBoard = document.getElementById("player-board");
 const computerBoard = document.getElementById("computer-board");
 const playerTurn = document.getElementById("player-turn");
 const shipsContainer = document.getElementById("ships-container");
 const ships = [...document.getElementsByClassName("ship")];
+const startButton = document.getElementById("start-button");
+const gameStartInstructions = document.getElementById("game-start-instructions");
 const messageContainer = document.getElementById("message-container");
 const messageTitle = document.getElementById("message-title");
 const messageText = document.getElementById("message-text");
@@ -36,9 +39,26 @@ function init() {
     messageContainer.classList.remove("show");
     [player, computer] = initializePlayers();
     renderBoards(player, playerBoard, computer, computerBoard);
+    container.classList.remove("started");
+    container.dataset.gameStarted = false;
+    ships.forEach(ship => ship.classList.remove("placed"));
+    manageDOMShipPlacement([...playerBoard.children]);
+    showInstruction(null, false, false);
   });
   renderBoards(player, playerBoard, computer, computerBoard);
   computerBoard.style.pointerEvents = "none";
+
+  startButton.addEventListener("click", () => {
+    try {
+      window.startGame();
+      showInstruction(null, false, true);
+      container.classList.add("started");
+      container.dataset.gameStarted = true;
+    } catch (error) {
+      console.error(error);
+      showInstruction(error.message);
+    }
+  });
 
   ships.forEach(ship => {
     ship.addEventListener("dragstart", () => {
@@ -63,6 +83,9 @@ function init() {
       throw new Error("All ships must be placed to start the game!");
     }
   };
+  window.addEventListener("keydown", event => {
+    if (event.key === "Enter" && container.dataset.gameStarted !== "true") startButton.click();
+  });
 }
 
 function getDOMCell(coordinates, DOMBoard) {
@@ -70,6 +93,17 @@ function getDOMCell(coordinates, DOMBoard) {
   const x = parseInt(coordinates[0]);
   const y = parseInt(coordinates[1]);
   return DOMBoard.querySelector(`.cell.row-${x}.column-${y}`);
+}
+
+function showInstruction(errorMessage = null, show = true, clear = false) {
+  if (show && errorMessage) {
+    gameStartInstructions.textContent = errorMessage;
+    gameStartInstructions.classList.add("error");
+  } else {
+    gameStartInstructions.textContent = "Place all of your ships on the board to start the game";
+    gameStartInstructions.classList.remove("error");
+    if (clear) gameStartInstructions.textContent = "";
+  }
 }
 
 function manageDOMShipPlacement(cells) {
@@ -105,6 +139,7 @@ function manageDOMShipPlacement(cells) {
           }
         }
         draggedShip.classList.add("placed");
+        showInstruction(null, false);
       } catch (error) {
         if (isHorizontal) {
           for (let i = 0; i < shipLength; i++) {
@@ -113,9 +148,11 @@ function manageDOMShipPlacement(cells) {
           }
         }
         console.error(error);
+        showInstruction(error.message);
       }
     });
   });
+
   function getPlacementData(cell, ship, shipsContainer) {
     const x = parseInt(cell.dataset.row);
     const y = parseInt(cell.dataset.column);
