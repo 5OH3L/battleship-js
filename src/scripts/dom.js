@@ -213,7 +213,7 @@ function renderBoards(player1, player1DOMBoard, player2, player2DOMBoard) {
 function computerShoot(player, computer) {
   const [attackX, attackY] = computer.shoot();
   player.gameboard.receiveAttack(attackX, attackY);
-  const cell = document.querySelector(`.row${attackX}.column${attackY}`);
+  const cell = document.querySelector(`.row-${attackX}.column-${attackY}`);
   cell.classList.add("shot");
   refreshCells(player, [cell]);
   const gameOver = isGameOver(player, computer);
