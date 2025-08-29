@@ -1,5 +1,18 @@
 import Player from "./player.js";
 
+const container = document.getElementById("container");
+const playerBoard = document.getElementById("player-board");
+const computerBoard = document.getElementById("computer-board");
+const playerTurn = document.getElementById("player-turn");
+const shipsContainer = document.getElementById("ships-container");
+const ships = [...document.getElementsByClassName("ship")];
+const startButton = document.getElementById("start-button");
+const gameStartInstructions = document.getElementById("game-start-instructions");
+const messageContainer = document.getElementById("message-container");
+const messageTitle = document.getElementById("message-title");
+const messageText = document.getElementById("message-text");
+const messageAcionButton = document.getElementById("message-action");
+
 function initializePlayers() {
   const player = Player("Player");
   const computer = Player("Computer");
@@ -14,19 +27,6 @@ function initializePlayers() {
 }
 
 let [player, computer] = initializePlayers();
-
-const container = document.getElementById("container");
-const playerBoard = document.getElementById("player-board");
-const computerBoard = document.getElementById("computer-board");
-const playerTurn = document.getElementById("player-turn");
-const shipsContainer = document.getElementById("ships-container");
-const ships = [...document.getElementsByClassName("ship")];
-const startButton = document.getElementById("start-button");
-const gameStartInstructions = document.getElementById("game-start-instructions");
-const messageContainer = document.getElementById("message-container");
-const messageTitle = document.getElementById("message-title");
-const messageText = document.getElementById("message-text");
-const messageAcionButton = document.getElementById("message-action");
 
 let isPlayerTurn;
 let draggedShip = null;
