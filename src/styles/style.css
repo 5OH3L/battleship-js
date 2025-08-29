@@ -96,19 +96,19 @@ h2 {
 }
 
 .cell.ship1 {
-  background-color: #ffa500;
+  background-color: #48cae4;
 }
 .cell.ship2 {
-  background-color: #00ffff;
+  background-color: #00b4d8;
 }
 .cell.ship3 {
-  background-color: #305cde;
+  background-color: #0096c7;
 }
 .cell.ship4 {
-  background-color: #32cd32;
+  background-color: #0077b6;
 }
 .cell.ship5 {
-  background-color: #ffff00;
+  background-color: #023e8a;
 }
 
 /* Message */
