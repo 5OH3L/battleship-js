@@ -18,12 +18,15 @@ let [player, computer] = initializePlayers();
 const playerBoard = document.getElementById("player-board");
 const computerBoard = document.getElementById("computer-board");
 const playerTurn = document.getElementById("player-turn");
+const shipsContainer = document.getElementById("ships-container");
+const ships = [...document.getElementsByClassName("ship")];
 const messageContainer = document.getElementById("message-container");
 const messageTitle = document.getElementById("message-title");
 const messageText = document.getElementById("message-text");
 const messageAcionButton = document.getElementById("message-action");
 
 let isPlayerTurn;
+let draggedShip = null;
 
 function init() {
   setTimeout(() => {
@@ -36,6 +39,17 @@ function init() {
   });
   renderBoards(player, playerBoard, computer, computerBoard);
   computerBoard.style.pointerEvents = "none";
+
+  ships.forEach(ship => {
+    ship.addEventListener("dragstart", () => {
+      draggedShip = ship;
+    });
+    ship.addEventListener("dragend", () => {
+      draggedShip = null;
+    });
+  });
+  manageDOMShipPlacement([...playerBoard.children]);
+
   window.placeShip = function (coordinates, shipNumber, isHorizontal) {
     player.gameboard.placeShip(coordinates, shipNumber, isHorizontal);
     renderBoards(player, playerBoard);
@@ -50,6 +64,79 @@ function init() {
       throw new Error("All ships must be placed to start the game!");
     }
   };
+}
+
+function getDOMCell(coordinates, DOMBoard) {
+  if (!coordinates || !DOMBoard) return false;
+  const x = parseInt(coordinates[0]);
+  const y = parseInt(coordinates[1]);
+  return DOMBoard.querySelector(`.cell.row-${x}.column-${y}`);
+}
+
+function manageDOMShipPlacement(cells) {
+  cells.forEach(cell => {
+    cell.addEventListener("dragover", event => {
+      event.preventDefault();
+      const { x, y, shipLength, shipClassList, isHorizontal } = getPlacementData(cell, draggedShip, shipsContainer);
+      if (isHorizontal) {
+        for (let i = 0; i < shipLength; i++) {
+          const DOMCell = getDOMCell([x, y + i], playerBoard);
+          if (DOMCell) DOMCell.classList.add(...shipClassList);
+        }
+      }
+    });
+    cell.addEventListener("dragleave", () => {
+      const { x, y, shipLength, shipClassList, isHorizontal } = getPlacementData(cell, draggedShip, shipsContainer);
+      if (isHorizontal) {
+        for (let i = 0; i < shipLength; i++) {
+          const DOMCell = getDOMCell([x, y + i], playerBoard);
+          if (DOMCell) DOMCell.classList.remove(...shipClassList);
+        }
+      }
+    });
+    cell.addEventListener("drop", event => {
+      event.preventDefault();
+      const { x, y, shipLength, shipClassList, isHorizontal } = getPlacementData(cell, draggedShip, shipsContainer);
+      try {
+        player.gameboard.placeShip([x, y], parseInt(draggedShip.dataset.index), isHorizontal);
+        if (isHorizontal) {
+          for (let i = 0; i < shipLength; i++) {
+            const DOMCell = getDOMCell([x, y + i], playerBoard);
+            if (DOMCell) DOMCell.classList.add(...shipClassList);
+          }
+        }
+        if (isHorizontal) {
+          for (let i = 0; i < shipLength; i++) {
+            const DOMCell = getDOMCell([x, y + i], playerBoard);
+            if (DOMCell) DOMCell.classList.add(...shipClassList);
+          }
+        }
+        draggedShip.classList.add("placed");
+      } catch (error) {
+        if (isHorizontal) {
+          for (let i = 0; i < shipLength; i++) {
+            const DOMCell = getDOMCell([x, y + i], playerBoard);
+            if (DOMCell) DOMCell.classList.remove(...shipClassList);
+          }
+        }
+        console.error(error);
+      }
+    });
+  });
+  function getPlacementData(cell, ship, shipsContainer) {
+    const x = parseInt(cell.dataset.row);
+    const y = parseInt(cell.dataset.column);
+    const shipLength = parseInt(ship.dataset.length);
+    const shipClassList = [...ship.classList];
+    const isHorizontal = shipsContainer.dataset.isHorizontal === "true" ? true : false;
+    return {
+      x,
+      y,
+      shipLength,
+      shipClassList,
+      isHorizontal,
+    };
+  }
 }
 
 function getAllPlacedShipNumbers(board) {
