@@ -179,15 +179,13 @@ function getAllPlacedShipNumbers(board) {
   return [...allPlacedShipNumbers];
 }
 
-function refreshCells(player, cells) {
-  cells.forEach(cell => {
-    const board = player.gameboard.board;
-    const x = Number(cell.dataset.row);
-    const y = Number(cell.dataset.column);
-    if (board[x][y] === -1 || board[x][y] === -2) {
-      cell.classList.add("shot");
-    }
-  });
+function refreshCell(player, cell) {
+  const board = player.gameboard.board;
+  const x = Number(cell.dataset.row);
+  const y = Number(cell.dataset.column);
+  if (board[x][y] === -1 || board[x][y] === -2) {
+    cell.classList.add("shot");
+  }
 }
 
 function isGameOver(player1, player2) {
@@ -228,7 +226,7 @@ function renderBoards(player1, player1DOMBoard, player2, player2DOMBoard) {
           cell.addEventListener("click", () => {
             if (cell.dataset.shot === "") return;
             player.gameboard.receiveAttack(i, j);
-            refreshCells(player, [cell]);
+            refreshCell(player, cell);
             const gameOver = isGameOver(player, computer);
             if (gameOver) {
               gameOver === 1
@@ -255,7 +253,7 @@ function computerShoot(player, computer) {
   player.gameboard.receiveAttack(attackX, attackY);
   const cell = document.querySelector(`.row-${attackX}.column-${attackY}`);
   cell.classList.add("shot");
-  refreshCells(player, [cell]);
+  refreshCell(player, cell);
   const gameOver = isGameOver(player, computer);
   if (gameOver) {
     gameOver === 1
