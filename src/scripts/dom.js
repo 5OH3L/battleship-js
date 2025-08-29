@@ -55,8 +55,7 @@ function init() {
 function getAllPlacedShipNumbers(board) {
   const allPlacedShipNumbers = new Set();
   for (let i = 0; i < board.length; i++)
-    for (let j = 0; j < board[i].length; j++)
-      if ([1, 2, 3, 4, 5].includes(board[i][j])) allPlacedShipNumbers.add(board[i][j]);
+    for (let j = 0; j < board[i].length; j++) if ([1, 2, 3, 4, 5].includes(board[i][j])) allPlacedShipNumbers.add(board[i][j]);
   return [...allPlacedShipNumbers];
 }
 
@@ -95,9 +94,9 @@ function renderBoards(player1, player1DOMBoard, player2, player2DOMBoard) {
       for (let j = 0; j < player.gameboard.board[i].length; j++) {
         const cellValue = player.gameboard.board[i][j];
         const cell = document.createElement("div");
-        cell.className = `cell row${i} column${j}`;
+        cell.className = `cell row-${i} column-${j}`;
         [1, 2, 3, 4, 5].forEach(shipIndex => {
-          if (cellValue === shipIndex) cell.classList.add("ship", `ship${shipIndex}`);
+          if (cellValue === shipIndex) cell.classList.add("ship", `ship-${shipIndex}`);
         });
         if (cellValue === -1 || cellValue === -2) {
           cell.classList.add("shot");
