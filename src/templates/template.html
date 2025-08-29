@@ -21,7 +21,51 @@
           <div id="computer-board" class="board-container"></div>
         </div>
       </main>
-      <div id="message-container" style="display: none;">
+      <div id="ships-container">
+        <div id="ships-container-header">
+          <h2 id="game-start-instructions">Place all of your ships on the board to start the game</h2>
+          <button id="orientation-button" class="button">Horizontal (ctrl)</button>
+        </div>
+        <div class="ship-container">
+          <div id="ship-1" class="ship ship-1" draggable="true">
+            <div class="ship-section ship-section-1"></div>
+            <div class="ship-section ship-section-2"></div>
+          </div>
+        </div>
+        <div class="ship-container">
+          <div id="ship-2" class="ship ship-2" draggable="true">
+            <div class="ship-section ship-section-1"></div>
+            <div class="ship-section ship-section-2"></div>
+            <div class="ship-section ship-section-3"></div>
+          </div>
+        </div>
+        <div class="ship-container">
+          <div id="ship-3" class="ship ship-3" draggable="true">
+            <div class="ship-section ship-section-1"></div>
+            <div class="ship-section ship-section-2"></div>
+            <div class="ship-section ship-section-3"></div>
+          </div>
+        </div>
+        <div class="ship-container">
+          <div id="ship-4" class="ship ship-4" draggable="true">
+            <div class="ship-section ship-section-1"></div>
+            <div class="ship-section ship-section-2"></div>
+            <div class="ship-section ship-section-3"></div>
+            <div class="ship-section ship-section-4"></div>
+          </div>
+        </div>
+        <div class="ship-container">
+          <div id="ship-5" class="ship ship-5" draggable="true">
+            <div class="ship-section ship-section-1"></div>
+            <div class="ship-section ship-section-2"></div>
+            <div class="ship-section ship-section-3"></div>
+            <div class="ship-section ship-section-4"></div>
+            <div class="ship-section ship-section-5"></div>
+          </div>
+        </div>
+        <button id="start-button" class="button">Start (enter)</button>
+      </div>
+      <div id="message-container" style="display: none">
         <div id="message-overlay"></div>
         <div id="message">
           <h2 id="message-title"></h2>
