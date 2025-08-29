@@ -57,7 +57,6 @@ function init() {
   window.startGame = function () {
     const allPlayerPlacedShipNumbers = getAllPlacedShipNumbers(player.gameboard.board);
     const allComputerPlacedShipNumbers = getAllPlacedShipNumbers(computer.gameboard.board);
-    player.gameboard.board;
     if (allPlayerPlacedShipNumbers.length === 5 && allComputerPlacedShipNumbers.length === 5) {
       startGame(player, null, computer, null);
     } else {
@@ -99,12 +98,6 @@ function manageDOMShipPlacement(cells) {
       const { x, y, shipLength, shipClassList, isHorizontal } = getPlacementData(cell, draggedShip, shipsContainer);
       try {
         player.gameboard.placeShip([x, y], parseInt(draggedShip.dataset.index), isHorizontal);
-        if (isHorizontal) {
-          for (let i = 0; i < shipLength; i++) {
-            const DOMCell = getDOMCell([x, y + i], playerBoard);
-            if (DOMCell) DOMCell.classList.add(...shipClassList);
-          }
-        }
         if (isHorizontal) {
           for (let i = 0; i < shipLength; i++) {
             const DOMCell = getDOMCell([x, y + i], playerBoard);
