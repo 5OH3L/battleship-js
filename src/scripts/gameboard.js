@@ -61,7 +61,7 @@ function Gameboard() {
         horizontalPlacementCells.some(coordinates => {
           const x = coordinates[0];
           const y = coordinates[1];
-          return x > 10 || x < 0 || y > 10 || y < 0;
+          return x > 9 || x < 0 || y > 9 || y < 0;
         })
       )
         throw new Error("Can't place ship off board");
