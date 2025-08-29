@@ -110,6 +110,7 @@ function manageDOMShipPlacement(cells) {
   cells.forEach(cell => {
     cell.addEventListener("dragover", event => {
       event.preventDefault();
+      if (!draggedShip) return;
       const { x, y, shipLength, shipClassList, isHorizontal } = getPlacementData(cell, draggedShip, shipsContainer);
       if (isHorizontal) {
         for (let i = 0; i < shipLength; i++) {
@@ -119,6 +120,7 @@ function manageDOMShipPlacement(cells) {
       }
     });
     cell.addEventListener("dragleave", () => {
+      if (!draggedShip) return;
       const { x, y, shipLength, shipClassList, isHorizontal } = getPlacementData(cell, draggedShip, shipsContainer);
       if (isHorizontal) {
         for (let i = 0; i < shipLength; i++) {
@@ -129,6 +131,7 @@ function manageDOMShipPlacement(cells) {
     });
     cell.addEventListener("drop", event => {
       event.preventDefault();
+      if (!draggedShip) return;
       const { x, y, shipLength, shipClassList, isHorizontal } = getPlacementData(cell, draggedShip, shipsContainer);
       try {
         player.gameboard.placeShip([x, y], parseInt(draggedShip.dataset.index), isHorizontal);
