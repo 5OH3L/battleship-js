@@ -115,7 +115,7 @@ function manageDOMShipPlacement(cells) {
       if (isHorizontal) {
         for (let i = 0; i < shipLength; i++) {
           const DOMCell = getDOMCell([x, y + i], playerBoard);
-          if (DOMCell) DOMCell.classList.add(...shipClassList);
+          if (DOMCell) DOMCell.classList.add(shipClassList[1]);
         }
       }
     });
@@ -125,7 +125,7 @@ function manageDOMShipPlacement(cells) {
       if (isHorizontal) {
         for (let i = 0; i < shipLength; i++) {
           const DOMCell = getDOMCell([x, y + i], playerBoard);
-          if (DOMCell) DOMCell.classList.remove(...shipClassList);
+          if (DOMCell) DOMCell.classList.remove(shipClassList[1]);
         }
       }
     });
@@ -147,7 +147,7 @@ function manageDOMShipPlacement(cells) {
         if (isHorizontal) {
           for (let i = 0; i < shipLength; i++) {
             const DOMCell = getDOMCell([x, y + i], playerBoard);
-            if (DOMCell) DOMCell.classList.remove(...shipClassList);
+            if (DOMCell) DOMCell.classList.remove(shipClassList[1]);
           }
         }
         console.error(error);
