@@ -133,7 +133,7 @@ function manageDOMShipPlacement(cells) {
         }
       } else {
         for (let i = 0; i < shipLength; i++) {
-          const DOMCell = getDOMCell([x - i, y], playerBoard);
+          const DOMCell = getDOMCell([x + i, y], playerBoard);
           if (DOMCell) DOMCell.classList.add(shipClassList[1]);
         }
       }
@@ -148,7 +148,7 @@ function manageDOMShipPlacement(cells) {
         }
       } else {
         for (let i = 0; i < shipLength; i++) {
-          const DOMCell = getDOMCell([x - i, y], playerBoard);
+          const DOMCell = getDOMCell([x + i, y], playerBoard);
           if (DOMCell) DOMCell.classList.remove(shipClassList[1]);
         }
       }
@@ -166,7 +166,7 @@ function manageDOMShipPlacement(cells) {
           }
         } else {
           for (let i = 0; i < shipLength; i++) {
-            const DOMCell = getDOMCell([x - i, y], playerBoard);
+            const DOMCell = getDOMCell([x + i, y], playerBoard);
             if (DOMCell) DOMCell.classList.add(...shipClassList);
           }
         }
@@ -180,7 +180,7 @@ function manageDOMShipPlacement(cells) {
           }
         } else {
           for (let i = 0; i < shipLength; i++) {
-            const DOMCell = getDOMCell([x - i, y], playerBoard);
+            const DOMCell = getDOMCell([x + i, y], playerBoard);
             if (DOMCell) DOMCell.classList.remove(shipClassList[1]);
           }
         }

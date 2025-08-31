@@ -78,7 +78,7 @@ function Gameboard() {
       }
     } else {
       const verticalPlacementCells = [];
-      for (let i = 0; i < ships[shipNumber-1].length; i++) verticalPlacementCells.push([x - i, y]);
+      for (let i = 0; i < ships[shipNumber-1].length; i++) verticalPlacementCells.push([x + i, y]);
       if (
         verticalPlacementCells.some(coordinates => {
           const x = coordinates[0];
