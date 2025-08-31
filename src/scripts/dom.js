@@ -131,6 +131,11 @@ function manageDOMShipPlacement(cells) {
           const DOMCell = getDOMCell([x, y + i], playerBoard);
           if (DOMCell) DOMCell.classList.add(shipClassList[1]);
         }
+      } else {
+        for (let i = 0; i < shipLength; i++) {
+          const DOMCell = getDOMCell([x - i, y], playerBoard);
+          if (DOMCell) DOMCell.classList.add(shipClassList[1]);
+        }
       }
     });
     cell.addEventListener("dragleave", () => {
@@ -139,6 +144,11 @@ function manageDOMShipPlacement(cells) {
       if (isHorizontal) {
         for (let i = 0; i < shipLength; i++) {
           const DOMCell = getDOMCell([x, y + i], playerBoard);
+          if (DOMCell) DOMCell.classList.remove(shipClassList[1]);
+        }
+      } else {
+        for (let i = 0; i < shipLength; i++) {
+          const DOMCell = getDOMCell([x - i, y], playerBoard);
           if (DOMCell) DOMCell.classList.remove(shipClassList[1]);
         }
       }
@@ -154,6 +164,11 @@ function manageDOMShipPlacement(cells) {
             const DOMCell = getDOMCell([x, y + i], playerBoard);
             if (DOMCell) DOMCell.classList.add(...shipClassList);
           }
+        } else {
+          for (let i = 0; i < shipLength; i++) {
+            const DOMCell = getDOMCell([x - i, y], playerBoard);
+            if (DOMCell) DOMCell.classList.add(...shipClassList);
+          }
         }
         draggedShip.classList.add("placed");
         showInstruction(null, false);
@@ -161,6 +176,11 @@ function manageDOMShipPlacement(cells) {
         if (isHorizontal) {
           for (let i = 0; i < shipLength; i++) {
             const DOMCell = getDOMCell([x, y + i], playerBoard);
+            if (DOMCell) DOMCell.classList.remove(shipClassList[1]);
+          }
+        } else {
+          for (let i = 0; i < shipLength; i++) {
+            const DOMCell = getDOMCell([x - i, y], playerBoard);
             if (DOMCell) DOMCell.classList.remove(shipClassList[1]);
           }
         }
