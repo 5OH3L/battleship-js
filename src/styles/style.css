@@ -140,6 +140,20 @@ h2 {
   opacity: 0;
   transform: translateX(200%);
 }
+#ships-container.vertical {
+  grid-template-rows: none;
+  grid-template-columns: repeat(5, 1fr);
+}
+#ships-container.vertical > .ship-container > .ship {
+  height: fit-content;
+  flex-direction: column;
+  max-height: unset;
+  max-width: 2rem;
+}
+#ships-container.vertical > .ship-container > .ship > .ship-section {
+  height: 2rem;
+  flex: none;
+}
 #ships-container > .ship-container {
   border: 2px solid white;
   background-color: rgba(255, 255, 255, 0.3);

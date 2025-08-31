@@ -6,6 +6,7 @@ const computerBoard = document.getElementById("computer-board");
 const playerTurn = document.getElementById("player-turn");
 const shipsContainer = document.getElementById("ships-container");
 const ships = [...document.getElementsByClassName("ship")];
+const orientationButton = document.getElementById("orientation-button");
 const startButton = document.getElementById("start-button");
 const gameStartInstructions = document.getElementById("game-start-instructions");
 const messageContainer = document.getElementById("message-container");
@@ -60,6 +61,18 @@ function init() {
     }
   });
 
+  orientationButton.addEventListener("click", () => {
+    if (shipsContainer.classList.contains("vertical")) {
+      shipsContainer.removeAttribute("class");
+      shipsContainer.dataset.isHorizontal = "true";
+      orientationButton.textContent = "Vertical (ctrl)";
+    } else {
+      shipsContainer.classList.add("vertical");
+      shipsContainer.dataset.isHorizontal = "false";
+      orientationButton.textContent = "Horizontal (ctrl)";
+    }
+  });
+
   ships.forEach(ship => {
     ship.addEventListener("dragstart", () => {
       draggedShip = ship;
@@ -85,6 +98,7 @@ function init() {
   };
   window.addEventListener("keydown", event => {
     if (event.key === "Enter" && container.dataset.gameStarted !== "true") startButton.click();
+    if (event.key === "Control" && container.dataset.gameStarted !== "true") orientationButton.click();
   });
 }
 
