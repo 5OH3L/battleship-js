@@ -55,16 +55,16 @@ h2 {
   transition: background-color 0.3s ease;
   cursor: default;
 }
-#player-board {
+#player-1-board {
   pointer-events: visible;
 }
-#computer-board > .cell {
+#player-2-board > .cell {
   background-color: rgba(0, 0, 0, 0.1);
 }
-#computer-board > .cell:not(.shot) {
+#player-2-board > .cell:not(.shot) {
   cursor: pointer;
 }
-#computer-board > .cell:not(.shot):hover {
+#player-2-board > .cell:not(.shot):hover {
   border-color: skyblue;
   background-color: rgb(135, 206, 235, 0.5);
 }
@@ -136,7 +136,7 @@ h2 {
   z-index: 10;
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
-#container.started > #ships-container {
+#ships-container:not(.visible) {
   opacity: 0;
   transform: translateX(200%);
 }
@@ -308,4 +308,260 @@ h2 {
   opacity: 1;
   transform: translateY(0%);
   pointer-events: all;
+}
+
+/* Game mode Selection */
+#game-mode-selection-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+#game-mode-selection {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 0.2rem;
+  height: 50dvh;
+  width: 60dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  padding: 0 1rem;
+  user-select: none;
+  opacity: 0;
+  transform: translateY(-200%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+#game-mode-selection-container.visible > #game-mode-selection {
+  pointer-events: all;
+  opacity: 1;
+  transform: translateY(0);
+}
+#game-mode-selection-title-text {
+  font-size: 2rem;
+}
+#game-modes {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+#player-computer,
+#player-player {
+  background: none;
+  border: none;
+  outline: none;
+  color: inherit;
+  font-size: 1.2rem;
+  background-color: rgba(200, 200, 255, 0.3);
+  padding: 0.4rem 1.2rem;
+  width: 45%;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+#player-computer:hover,
+#player-player:hover {
+  transform: scale(1.05);
+}
+#player-computer:active,
+#player-player:active {
+  transform: scale(1.025);
+}
+#overlay {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: #1c1c1c;
+  backdrop-filter: blur(0.1rem);
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+#overlay.visible {
+  pointer-events: all;
+  opacity: 1;
+}
+
+/* player Input */
+
+#player-input-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-color: #1c1c1c;
+  backdrop-filter: blur(0.1rem);
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  user-select: none;
+}
+#player-input-container.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+#player-input {
+  border: 2px solid white;
+  border-radius: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 50%;
+  width: 40%;
+  opacity: 0;
+  transform: translateY(200%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+#player-input-container.visible > #player-input {
+  opacity: 1;
+  transform: translateY(0);
+}
+#players {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex: 5;
+}
+#players > * {
+  padding: 1rem;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#players > :first-child {
+  border-right: 1px solid white;
+  border-bottom: 2px solid white;
+}
+#players > :last-child {
+  display: none;
+  border-left: 1px solid white;
+  border-bottom: 2px solid white;
+}
+#players > * > h2 {
+  font-size: 2.2rem;
+}
+#players > * > :last-child {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+#players > * > :last-child > label {
+  font-size: 1.5rem;
+}
+#players > * > :last-child > input {
+  border: none;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.2rem;
+  color: white;
+  font-size: 1.5rem;
+  border: 2px solid white;
+}
+
+#player-input-confirm-button {
+  background: none;
+  outline: none;
+  border: 2px solid white;
+  border-radius: 0.2rem;
+  font-size: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: inherit;
+  padding: 0.4rem 1rem;
+  margin: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+#player-input-confirm-button:hover {
+  transform: scale(1.05);
+}
+#player-input-confirm-button:active {
+  transition: transform 0.1s ease;
+  transform: scale(1.025);
+}
+#player-input-container.player > #player-input > #players > #player2-input {
+  display: flex;
+}
+#player-input-container.player > #player-input {
+  width: 75%;
+}
+#player-input-back-button {
+  position: absolute;
+  background: none;
+  border: none;
+  outline: none;
+  color: inherit;
+  font-size: 1.2rem;
+  top: 0;
+  left: 0;
+  border-color: white;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  padding: 0.4rem 1rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+  border-top-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#player-input-back-button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+#player-input-back-button:active {
+  transition: background-color 0.1s ease;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Notification */
+#notification-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  pointer-events: none;
+}
+#notification-message {
+  background-color: hsl(197, 71%, 50%);
+  font-size: 1.4rem;
+  color: white;
+  width: fit-content;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  border: 2px solid white;
+  border-left: 8px solid white;
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  user-select: none;
+  pointer-events: visible;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+#notification-message.visible {
+  opacity: 1;
 }

@@ -6,22 +6,22 @@
     <title>Battleship</title>
   </head>
   <body>
-    <div id="container" data-game-started="false">
+    <div id="container" data-game-started="false" data-gamemode="computer">
       <header>
-        <h2 id="player-turn"></h2>
+        <h2 id="player-turn">---</h2>
       </header>
       <main>
-        <div id="player-container">
-          <h2>Player</h2>
-          <div id="player-board" class="board-container"></div>
+        <div id="player-1-container">
+          <h2 id="player-1-name">Player - 1</h2>
+          <div id="player-1-board" class="board-container"></div>
         </div>
         <div id="boards-divider"></div>
-        <div id="computer-container">
-          <h2>Computer</h2>
-          <div id="computer-board" class="board-container"></div>
+        <div id="player-2-container">
+          <h2 id="player-2-name">Player - 2</h2>
+          <div id="player-2-board" class="board-container"></div>
         </div>
       </main>
-      <div id="ships-container" data-is-horizontal="true">
+      <div id="ships-container" data-is-horizontal="true" style="display: none">
         <div id="ships-container-header">
           <h2 id="game-start-instructions">Place all of your ships on the board to start the game</h2>
           <button id="orientation-button" class="button">Vertical (ctrl)</button>
@@ -74,6 +74,41 @@
             <button id="message-action">--</button>
           </div>
         </div>
+      </div>
+      <div id="overlay" class="visible"></div>
+      <div id="game-mode-selection-container" class="visible">
+        <div id="game-mode-selection">
+          <h2 id="game-mode-selection-title-text">Select a Game Mode</h2>
+          <div id="game-modes">
+            <button id="player-computer">Computer</button>
+            <button id="player-player">Pass-and-Play</button>
+          </div>
+        </div>
+      </div>
+      <div id="player-input-container" style="display: none">
+        <div id="player-input">
+          <button id="player-input-back-button">Back</button>
+          <div id="players">
+            <div id="player1-input">
+              <h2 id="player1-input-title">Enter Player-1 Name</h2>
+              <div id="player1-input-name">
+                <label id="player1-input-name-label" for="player1-input-name-text">Name:</label>
+                <input type="text" id="player1-input-name-text" maxlength="23" />
+              </div>
+            </div>
+            <div id="player2-input">
+              <h2 id="player2-input-title">Enter Player-2 Name</h2>
+              <div id="player2-input-name">
+                <label id="player2-input-name-label" for="player2-input-name-text">Name:</label>
+                <input type="text" id="player2-input-name-text" maxlength="23" />
+              </div>
+            </div>
+          </div>
+          <button id="player-input-confirm-button">Confirm</button>
+        </div>
+      </div>
+      <div id="notification-container">
+        <p id="notification-message" style="display: none"></p>
       </div>
     </div>
   </body>
