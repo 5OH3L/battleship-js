@@ -24,7 +24,7 @@ function initDOM() {
   gameModeComputer.addEventListener("click", () => {
     const isGameStarted = container.dataset.gameStarted === "true" ? true : false;
     if (isGameStarted) return;
-    initGame(0);
+    initGame();
   });
 
   playerInputConfirmButton.addEventListener("click", () => {
@@ -36,9 +36,9 @@ function initDOM() {
         showNotification('Player name can\'t be "computer"', 5);
       } else {
         playerInputContainer.classList.remove("visible");
+        DOMOverlay.classList.remove("visible");
         DOMComputer.init(player1Name);
       }
-      DOMOverlay.classList.remove('visible')
     }
   });
 
@@ -70,11 +70,17 @@ function getPlayerInput() {
   const player2Name = player2InputName.value.trim();
   return { player1Name, player2Name };
 }
+function clearPlayerInput() {
+  player1InputName.value = "";
+  player2InputName.value = "";
+}
 
 function initGame() {
   gameModeSelectionContainer.classList.remove("visible");
   playerInputContainer.classList.add("visible");
+  clearPlayerInput();
   player1InputTitle.textContent = "Enter Player's Name";
+  player1InputName.focus();
 }
 
 function init() {
