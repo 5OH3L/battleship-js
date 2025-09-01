@@ -38,12 +38,12 @@ function initDOM() {
         playerInputContainer.classList.remove("visible");
         DOMComputer.init(player1Name);
       }
+      DOMOverlay.classList.remove('visible')
     }
   });
 
   playerInputBackButton.addEventListener("click", () => {
     gameModeSelectionContainer.classList.add("visible");
-    DOMOverlay.classList.add("visible");
     playerInputContainer.classList.remove("visible");
   });
 }
@@ -73,7 +73,6 @@ function getPlayerInput() {
 
 function initGame() {
   gameModeSelectionContainer.classList.remove("visible");
-  DOMOverlay.classList.remove("visible");
   playerInputContainer.classList.add("visible");
   player1InputTitle.textContent = "Enter Player's Name";
 }
