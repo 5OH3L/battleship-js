@@ -45,6 +45,7 @@ h2 {
   aspect-ratio: 1/1;
   border: 2px solid black;
   pointer-events: none;
+  transition: border-color 0.3s ease;
 }
 .cell {
   position: relative;
@@ -53,7 +54,7 @@ h2 {
   align-items: center;
   border: 1px solid black;
   background-color: rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   cursor: default;
 }
 .board-container:not(.disabled) {
@@ -62,8 +63,14 @@ h2 {
 #container:not(.game-started) .board-container.disabled > .cell {
   background-color: rgba(0, 0, 0, 0.1);
 }
-#container:not(.computer).game-started .board-container:not(.disabled) > .cell {
+#container:not(.computer).game-started .board-container > .cell {
   background-color: rgba(0, 0, 0, 0.1);
+}
+#container:not(.computer).game-started .board-container.disabled,
+#container:not(.computer).game-started .board-container.disabled > .cell {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+#container:not(.computer).game-started .board-container:not(.disabled) > .cell {
   pointer-events: all;
 }
 #container:not(.computer).game-started .board-container:not(.disabled) > .cell:not(.shot) {
@@ -73,12 +80,12 @@ h2 {
   border-color: skyblue;
   background-color: rgb(135, 206, 235, 0.5);
 }
-#container:not(.computer).game-started .board-container:not(.disabled) > .cell.shot::before,
-#container:not(.computer).game-started .board-container:not(.disabled) > .cell.shot::after {
+#container:not(.computer).game-started .board-container > .cell.shot::before,
+#container:not(.computer).game-started .board-container > .cell.shot::after {
   opacity: 1;
 }
-#container:not(.computer).game-started > main > #player-1-container > #player-1-board:not(.disabled) > .cell.shot.ship,
-#container:not(.computer).game-started > main > #player-2-container > #player-2-board:not(.disabled) > .cell.shot.ship {
+#container:not(.computer).game-started > main > #player-1-container > #player-1-board > .cell.shot.ship,
+#container:not(.computer).game-started > main > #player-2-container > #player-2-board > .cell.shot.ship {
   background-color: rgba(255, 0, 0, 0.5);
 }
 
