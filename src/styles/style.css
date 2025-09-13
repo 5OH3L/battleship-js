@@ -633,7 +633,14 @@ h2 {
 }
 .board-container{
   border-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(0.5rem);
+  box-shadow: 0 0 1rem 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.2rem;
 }
 .cell{
   border-color: rgba(255, 255, 255, 0.8);
+}
+.ships-container{
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(0.5rem);
 }
