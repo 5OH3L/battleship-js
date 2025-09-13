@@ -127,23 +127,23 @@ h2 {
 
 .cell.ship-1,
 .ship-container > .ship-1 {
-  background-color: #48cae4;
+  background-color: #575757;
 }
 .cell.ship-2,
 .ship-container > .ship-2 {
-  background-color: #00b4d8;
+  background-color: #464646;
 }
 .cell.ship-3,
 .ship-container > .ship-3 {
-  background-color: #0096c7;
+  background-color: #343434;
 }
 .cell.ship-4,
 .ship-container > .ship-4 {
-  background-color: #0077b6;
+  background-color: #232323;
 }
 .cell.ship-5,
 .ship-container > .ship-5 {
-  background-color: #023e8a;
+  background-color: #111111;
 }
 
 /* Ships Container */
@@ -628,19 +628,19 @@ h2 {
 
 #player-1-name,
 #player-2-name,
-#player-turn{
+#player-turn {
   color: white;
 }
-.board-container{
+.board-container {
   border-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(0.5rem);
   box-shadow: 0 0 1rem 1rem rgba(0, 0, 0, 0.1);
   border-radius: 0.2rem;
 }
-.cell{
+.cell {
   border-color: rgba(255, 255, 255, 0.8);
 }
-.ships-container{
+.ships-container {
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(0.5rem);
 }
