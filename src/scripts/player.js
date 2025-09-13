@@ -10,7 +10,17 @@ function Player(playerName) {
         availableShots.push([i, j]);
       }
     }
+    const adjacentShots = [];
     function shoot() {
+      if (adjacentShots.length >= 1) {
+        const nextShot = adjacentShots.splice(Math.floor(Math.random() * adjacentShots.length), 1)[0];
+        const availableShotsIndex = availableShots.findIndex(coordinate => {
+          const x = coordinate[0];
+          const y = coordinate[1];
+          return nextShot[0] === x && nextShot[1] === y;
+        });
+        if (availableShotsIndex !== -1) return availableShots.splice(availableShotsIndex, 1)[0];
+      }
       if (availableShots.length <= 0) return;
       return availableShots.splice(Math.floor(Math.random() * availableShots.length), 1)[0];
     }
@@ -26,6 +36,9 @@ function Player(playerName) {
         else name = newName;
       },
       shoot,
+      addAdjacentCoordinates(coordiante) {
+        adjacentShots.push(coordiante);
+      },
     };
   }
   return {

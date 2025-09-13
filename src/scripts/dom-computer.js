@@ -26,7 +26,7 @@ function initComputer() {
 
 function init(playerName) {
   player = Player(playerName);
-  computer = initComputer()
+  computer = initComputer();
   DOM.renderPlayerBoard(player, player1DOMBoard);
   DOM.renderComputerBoard(computer, player2DOMBoard, player, player1DOMBoard);
   player2DOMBoard.style.pointerEvents = "none";
@@ -64,7 +64,15 @@ function computerShoot(computer, player) {
     player2DOMBoard.style.pointerEvents = "none";
     DOM.displayTurn(DOM.isPlayerTurn, player.name, computer.name);
     DOM.switchTurn(DOM.isPlayerTurn, player1DOMBoard, player2DOMBoard);
-  } else computerShoot(computer, player);
+  } else {
+    const adjacentCells = getAdjacentCellCoordinates([attackX, attackY], player.gameboard.board);
+    adjacentCells.forEach(cell => {
+      const x = cell[0];
+      const y = cell[1];
+      computer.addAdjacentCoordinates([x, y]);
+    });
+    computerShoot(computer, player);
+  }
 }
 
 function startGame() {
@@ -73,6 +81,22 @@ function startGame() {
   DOM.displayTurn(DOM.isPlayerTurn, player.name, computer.name);
   DOM.switchTurn(DOM.isPlayerTurn, player1DOMBoard, player2DOMBoard);
   if (!DOM.isPlayerTurn) computerShoot(computer, player);
+}
+
+function getAdjacentCellCoordinates(coordiante, board) {
+  const x = coordiante[0];
+  const y = coordiante[1];
+  const allCells = [
+    [x - 1, y],
+    [x + 1, y],
+    [x, y - 1],
+    [x, y + 1],
+  ];
+  const validCells = [];
+  allCells.forEach(cell => {
+    if (board[cell[0]][cell[1]] !== -1 && board[cell[0]][cell[1]] !== -2) validCells.push(cell);
+  });
+  return validCells;
 }
 
 const DOMComputer = {

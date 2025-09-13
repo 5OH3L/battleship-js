@@ -350,7 +350,7 @@ function renderComputerBoard(computer, computerDOMBoard, player, playerDOMBoard)
           displayTurn(isPlayerTurn, player.name, computer.name);
           switchTurn(isPlayerTurn, playerDOMBoard, computerDOMBoard);
           if (!isPlayerTurn) DOMComputer.shoot(computer, player);
-        }
+        } 
       });
       computerDOMBoard.appendChild(cell);
     }
