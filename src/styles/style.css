@@ -30,7 +30,7 @@ body {
 #boards-divider {
   height: 100%;
   width: 0.1rem;
-  background-color: black;
+  background-color: white;
 }
 h2 {
   margin-bottom: 0.4rem;
@@ -624,4 +624,16 @@ h2 {
   to {
     background-position: 0 50%;
   }
+}
+
+#player-1-name,
+#player-2-name,
+#player-turn{
+  color: white;
+}
+.board-container{
+  border-color: rgba(255, 255, 255, 0.9);
+}
+.cell{
+  border-color: rgba(255, 255, 255, 0.8);
 }
