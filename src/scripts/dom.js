@@ -78,6 +78,7 @@ function initDOM() {
         DOMOverlay.classList.remove("visible");
         DOMComputer.init(player1Name);
         player1ShipsContainerContinueButton.textContent = "Start";
+        showInstruction(null, false);
       }
     } else if (container.dataset.gamemode === "player") {
       const { player1Name, player2Name } = getPlayerInput();
@@ -96,9 +97,9 @@ function initDOM() {
         DOMOverlay.classList.remove("visible");
         DOMPlayer.init(player1Name, player2Name);
         player1ShipsContainerContinueButton.textContent = "Continue";
+        showInstruction(null, false);
       }
     }
-    showInstruction(null, false);
   });
 
   playerInputBackButton.addEventListener("click", () => {
