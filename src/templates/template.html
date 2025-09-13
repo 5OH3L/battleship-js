@@ -21,10 +21,10 @@
           <div id="player-2-board" class="board-container"></div>
         </div>
       </main>
-      <div id="ships-container" data-is-horizontal="true" style="display: none">
-        <div id="ships-container-header">
-          <h2 id="game-start-instructions">Place all of your ships on the board to start the game</h2>
-          <button id="orientation-button" class="button">Vertical (ctrl)</button>
+      <div id="player-1-ships-container" class="ships-container" data-is-horizontal="true" style="display: none">
+        <div id="player-1-ships-container-header">
+          <h2 id="player-1-game-start-instructions" class="game-start-instructions">Place all of your ships on the board to start the game</h2>
+          <button class="orientation-button button">Vertical (ctrl)</button>
         </div>
         <div class="ship-container">
           <div id="ship-1" class="ship ship-1" data-index="1" data-length="2" draggable="true">
@@ -63,7 +63,57 @@
             <div class="ship-section ship-section-5"></div>
           </div>
         </div>
-        <button id="start-button" class="button">Start (enter)</button>
+        <div class="ships-container-actions">
+          <button id="player-1-ships-container-back-button" class="button">Back</button>
+          <button id="player-1-ships-container-continue-button" class="button">Continue</button>
+        </div>
+      </div>
+      <div id="player-2-ships-container" class="ships-container" data-is-horizontal="true" style="display: none">
+        <div id="player-2-ships-container-header">
+          <h2 id="player-2-game-start-instructions" class="game-start-instructions">Place all of your ships on the board to start the game</h2>
+          <button class="orientation-button button">Vertical (ctrl)</button>
+        </div>
+        <div class="ship-container">
+          <div id="ship-1" class="ship ship-1" data-index="1" data-length="2" draggable="true">
+            <div class="ship-section ship-section-1"></div>
+            <div class="ship-section ship-section-2"></div>
+          </div>
+        </div>
+        <div class="ship-container">
+          <div id="ship-2" class="ship ship-2" data-index="2" data-length="3" draggable="true">
+            <div class="ship-section ship-section-1"></div>
+            <div class="ship-section ship-section-2"></div>
+            <div class="ship-section ship-section-3"></div>
+          </div>
+        </div>
+        <div class="ship-container">
+          <div id="ship-3" class="ship ship-3" data-index="3" data-length="3" draggable="true">
+            <div class="ship-section ship-section-1"></div>
+            <div class="ship-section ship-section-2"></div>
+            <div class="ship-section ship-section-3"></div>
+          </div>
+        </div>
+        <div class="ship-container">
+          <div id="ship-4" class="ship ship-4" data-index="4" data-length="4" draggable="true">
+            <div class="ship-section ship-section-1"></div>
+            <div class="ship-section ship-section-2"></div>
+            <div class="ship-section ship-section-3"></div>
+            <div class="ship-section ship-section-4"></div>
+          </div>
+        </div>
+        <div class="ship-container">
+          <div id="ship-5" class="ship ship-5" data-index="5" data-length="5" draggable="true">
+            <div class="ship-section ship-section-1"></div>
+            <div class="ship-section ship-section-2"></div>
+            <div class="ship-section ship-section-3"></div>
+            <div class="ship-section ship-section-4"></div>
+            <div class="ship-section ship-section-5"></div>
+          </div>
+        </div>
+        <div class="ships-container-actions">
+          <button id="player-2-ships-container-back-button" class="button">Back</button>
+          <button id="player-2-ships-container-start-button" class="button">Start</button>
+        </div>
       </div>
       <div id="message-container" style="display: none">
         <div id="message-overlay"></div>
@@ -85,19 +135,19 @@
           </div>
         </div>
       </div>
-      <div id="player-input-container" style="display: none">
+      <div id="player-input-container" data-is-player-mode="false" style="display: none">
         <div id="player-input">
           <button id="player-input-back-button">Back</button>
           <div id="players">
             <div id="player1-input">
-              <h2 id="player1-input-title">Enter Player-1 Name</h2>
+              <h2 id="player1-input-title">Enter Player - 1's Name</h2>
               <div id="player1-input-name">
                 <label id="player1-input-name-label" for="player1-input-name-text">Name:</label>
                 <input type="text" id="player1-input-name-text" maxlength="23" />
               </div>
             </div>
             <div id="player2-input">
-              <h2 id="player2-input-title">Enter Player-2 Name</h2>
+              <h2 id="player2-input-title">Enter Player - 2's Name</h2>
               <div id="player2-input-name">
                 <label id="player2-input-name-label" for="player2-input-name-text">Name:</label>
                 <input type="text" id="player2-input-name-text" maxlength="23" />

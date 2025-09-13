@@ -44,6 +44,7 @@ h2 {
   height: 50dvh;
   aspect-ratio: 1/1;
   border: 2px solid black;
+  pointer-events: none;
 }
 .cell {
   position: relative;
@@ -55,24 +56,53 @@ h2 {
   transition: background-color 0.3s ease;
   cursor: default;
 }
-#player-1-board {
-  pointer-events: visible;
+.board-container:not(.disabled) {
+  pointer-events: all;
 }
-#player-2-board > .cell {
+#container:not(.game-started) .board-container.disabled > .cell {
   background-color: rgba(0, 0, 0, 0.1);
 }
-#player-2-board > .cell:not(.shot) {
+#container:not(.computer).game-started .board-container:not(.disabled) > .cell {
+  background-color: rgba(0, 0, 0, 0.1);
+  pointer-events: all;
+}
+#container:not(.computer).game-started .board-container:not(.disabled) > .cell:not(.shot) {
   cursor: pointer;
 }
-#player-2-board > .cell:not(.shot):hover {
+#container:not(.computer).game-started .board-container:not(.disabled) > .cell:not(.shot):hover {
   border-color: skyblue;
   background-color: rgb(135, 206, 235, 0.5);
 }
-.board-container > .cell.shot::before,
-.board-container > .cell.shot::after {
+#container:not(.computer).game-started .board-container:not(.disabled) > .cell.shot::before,
+#container:not(.computer).game-started .board-container:not(.disabled) > .cell.shot::after {
   opacity: 1;
 }
-#container > main .board-container > .cell.shot.ship {
+#container:not(.computer).game-started > main > #player-1-container > #player-1-board:not(.disabled) > .cell.shot.ship,
+#container:not(.computer).game-started > main > #player-2-container > #player-2-board:not(.disabled) > .cell.shot.ship {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+#container.computer > main #player-2-board > .cell {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#container.computer.game-started #player-2-board:not(.disabled) > .cell {
+  background-color: rgba(0, 0, 0, 0.1);
+  pointer-events: all;
+}
+#container.computer.game-started #player-2-board > .cell:not(.shot) {
+  cursor: pointer;
+}
+#container.computer.game-started #player-2-board > .cell:not(.shot):hover {
+  border-color: skyblue;
+  background-color: rgb(135, 206, 235, 0.5);
+}
+#container.computer.game-started .board-container > .cell.shot::before,
+#container.computer.game-started .board-container > .cell.shot::after {
+  opacity: 1;
+}
+#container.computer.game-started > main > #player-1-container > #player-1-board > .cell.shot.ship,
+#container.computer.game-started > main > #player-2-container > #player-2-board > .cell.shot.ship {
   background-color: rgba(255, 0, 0, 0.5);
 }
 
@@ -117,10 +147,9 @@ h2 {
 }
 
 /* Ships Container */
-#ships-container {
+.ships-container {
   position: fixed;
-  right: 10%;
-  bottom: 10%;
+
   height: 70dvh;
   width: 60dvh;
   border: 2px solid white;
@@ -136,45 +165,57 @@ h2 {
   z-index: 10;
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
-#ships-container:not(.visible) {
+#player-1-ships-container {
+  right: 10%;
+  bottom: 10%;
+}
+#player-2-ships-container {
+  left: 10%;
+  bottom: 10%;
+}
+.ships-container:not(.visible) {
   opacity: 0;
+}
+#player-1-ships-container:not(.visible) {
   transform: translateX(200%);
 }
-#ships-container.vertical {
+#player-2-ships-container:not(.visible) {
+  transform: translateX(-200%);
+}
+.ships-container.vertical {
   grid-template-rows: none;
   grid-template-columns: repeat(5, 1fr);
 }
-#ships-container.vertical > .ship-container > .ship {
+.ships-container.vertical > .ship-container > .ship {
   height: fit-content;
   flex-direction: column;
   max-height: unset;
   max-width: 2rem;
 }
-#ships-container.vertical > .ship-container > .ship > .ship-section {
+.ships-container.vertical > .ship-container > .ship > .ship-section {
   height: 2rem;
   flex: none;
 }
-#ships-container > .ship-container {
+.ships-container > .ship-container {
   border: 2px solid white;
   background-color: rgba(255, 255, 255, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#ships-container > .ship-container > .ship {
+.ships-container > .ship-container > .ship {
   height: 100%;
   display: flex;
   max-height: 2rem;
   cursor: grab;
   transition: opacity 0.3s ease;
 }
-#ships-container > .ship-container > .ship > .ship-section {
+.ships-container > .ship-container > .ship > .ship-section {
   border: 2px solid white;
   flex: 1;
   width: 2rem;
 }
-#start-button,
-#orientation-button {
+.button {
   background: none;
   outline: none;
   border: 2px solid white;
@@ -185,11 +226,11 @@ h2 {
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
-#container.started #start-button,
-#container.started #orientation-button {
+#container.started .button {
   pointer-events: none;
 }
-#ships-container-header {
+#player-1-ships-container-header,
+#player-2-ships-container-header {
   top: 0;
   position: absolute;
   padding: 1rem;
@@ -199,37 +240,40 @@ h2 {
   align-items: center;
   gap: 0.4rem;
 }
-#game-start-instructions {
+.game-start-instructions {
   background-color: rgba(255, 255, 255, 0.3);
   padding: 0.4rem;
   border-radius: 0.2rem;
   width: 23rem;
   height: 4.5rem;
 }
-#game-start-instructions.error {
+.game-start-instructions.error {
   color: skyblue;
 }
-#orientation-button {
+.orientation-button {
   width: fit-content;
 }
-#start-button {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 6%;
-}
-#start-button:hover,
-#orientation-button:hover {
+.button:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
-#start-button:active,
-#orientation-button:active {
+.button:active {
   background-color: rgba(255, 255, 255, 0.2);
 }
-#ships-container > .ship-container > .ship.placed {
+.ships-container > .ship-container > .ship.placed {
   cursor: default;
   opacity: 0.5;
   pointer-events: none;
+}
+.ships-container-actions {
+  position: absolute;
+  bottom: 6%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+.ships-container-actions > .button {
+  width: 30%;
 }
 
 /* Message */
@@ -320,7 +364,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 10;
 }
 #game-mode-selection {
   border: 2px solid rgba(255, 255, 255, 0.9);
@@ -380,7 +424,7 @@ h2 {
   width: 100%;
   background-color: #1c1c1c;
   backdrop-filter: blur(0.1rem);
-  z-index: 1;
+  z-index: 10;
   pointer-events: none;
   user-select: none;
   opacity: 0;
@@ -397,11 +441,10 @@ h2 {
   position: fixed;
   height: 100%;
   width: 100%;
-  z-index: 1;
+  z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1c1c1c;
   backdrop-filter: blur(0.1rem);
   color: white;
   opacity: 0;
@@ -538,7 +581,7 @@ h2 {
   position: fixed;
   height: 100%;
   width: 100%;
-  z-index: 1;
+  z-index: 10;
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
