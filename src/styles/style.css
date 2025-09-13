@@ -149,7 +149,6 @@ h2 {
 /* Ships Container */
 .ships-container {
   position: fixed;
-
   height: 70dvh;
   width: 60dvh;
   border: 2px solid white;
@@ -605,4 +604,24 @@ h2 {
 }
 #notification-message.visible {
   opacity: 1;
+}
+
+/* Background Animation */
+#container {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(45deg, #2a00ff, #008bff, #00ff3e);
+  background-size: 300% 300%;
+  animation: color 12s ease infinite;
+}
+@keyframes color {
+  from {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  to {
+    background-position: 0 50%;
+  }
 }
