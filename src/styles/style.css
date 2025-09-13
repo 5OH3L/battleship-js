@@ -306,7 +306,8 @@ h2 {
 }
 #message {
   color: white;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0.5rem);
   height: 50dvh;
   width: 70dvh;
   border: 2px solid rgba(255, 255, 255, 0.9);
@@ -337,7 +338,7 @@ h2 {
   background: none;
   font-size: 1.4rem;
   padding: 0.4rem 1rem;
-  background-color: skyblue;
+  background-color: #66c3e7;
   border-radius: 0.4rem;
   cursor: pointer;
   color: inherit;
