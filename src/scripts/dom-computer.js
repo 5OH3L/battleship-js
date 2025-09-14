@@ -58,8 +58,7 @@ function computerShoot(computer, player) {
       ? DOM.showMessage("Game Over!", "has sunk all of the ships of", "Restart", player.name, computer.name)
       : DOM.showMessage("Game Over!", "has sunk all of the ships of", "Restart", computer.name, player.name);
     return;
-  }
-  if (player.gameboard.board[attackX][attackY] === -1) {
+  } else if (player.gameboard.board[attackX][attackY] === -1) {
     DOM.isPlayerTurn = !DOM.isPlayerTurn;
     player2DOMBoard.style.pointerEvents = "none";
     DOM.displayTurn(DOM.isPlayerTurn, player.name, computer.name);
