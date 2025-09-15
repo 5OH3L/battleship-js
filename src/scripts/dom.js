@@ -349,12 +349,22 @@ function renderComputerBoard(computer, computerDOMBoard, player, playerDOMBoard)
           computerDOMBoard.style.pointerEvents = "none";
           displayTurn(isPlayerTurn, player.name, computer.name);
           switchTurn(isPlayerTurn, playerDOMBoard, computerDOMBoard);
-          if (!isPlayerTurn) DOMComputer.shoot(computer, player);
-        } 
+          if (!isPlayerTurn) computerShootDelay(DOMComputer.shoot, computer, player)
+        }
       });
       computerDOMBoard.appendChild(cell);
     }
   }
+}
+
+function computerShootDelay(callback, computer, player) {
+  const randomDelay = Math.floor(Math.random() * 2) + 1;
+  setTimeout(() => {
+    playerTurn.textContent = "Computer is thinking...";
+    setTimeout(() => {
+      callback(computer, player);
+    }, randomDelay * 1000);
+  }, 1000);
 }
 
 function manageDOMShipPlacement(player, DOMBoard) {
@@ -597,4 +607,5 @@ export default {
     isPlayerTurn = newPlayerTurn;
   },
   showMessage,
+  computerShootDelay
 };

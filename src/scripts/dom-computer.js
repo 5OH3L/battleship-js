@@ -79,7 +79,7 @@ function startGame() {
   DOM.isPlayerTurn = Math.random() < 0.5;
   DOM.displayTurn(DOM.isPlayerTurn, player.name, computer.name);
   DOM.switchTurn(DOM.isPlayerTurn, player1DOMBoard, player2DOMBoard);
-  if (!DOM.isPlayerTurn) computerShoot(computer, player);
+  if (!DOM.isPlayerTurn) DOM.computerShootDelay(computerShoot, computer, player);
 }
 
 function getAdjacentCellCoordinates(coordiante, board) {
