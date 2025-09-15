@@ -168,7 +168,7 @@ h2 {
   width: 60dvh;
   border: 2px solid white;
   border-radius: 0.3rem;
-  background-color: rgba(50, 50, 50, 1);
+  background-color: rgba(0, 0, 0, 0.8);
   display: grid;
   grid-template-rows: repeat(5, 1fr);
   padding: 0 1rem;
@@ -307,7 +307,6 @@ h2 {
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(0.1rem);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -315,7 +314,6 @@ h2 {
 #message {
   color: white;
   background-color: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(0.5rem);
   height: 50dvh;
   width: 70dvh;
   border: 2px solid rgba(255, 255, 255, 0.9);
@@ -323,7 +321,6 @@ h2 {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  backdrop-filter: blur(0.1rem);
   padding: 0 1rem;
   text-align: center;
   border-radius: 0.4rem;
@@ -438,7 +435,6 @@ h2 {
   height: 100%;
   width: 100%;
   background-color: #1c1c1c;
-  backdrop-filter: blur(0.1rem);
   z-index: 10;
   pointer-events: none;
   user-select: none;
@@ -460,7 +456,6 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(0.1rem);
   color: white;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -628,18 +623,6 @@ h2 {
   width: 100vw;
   background: linear-gradient(45deg, #7700ff, #008bff, #00ff3e);
   background-size: 300% 300%;
-  animation: color 12s ease infinite;
-}
-@keyframes color {
-  from {
-    background-position: 0 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  to {
-    background-position: 0 50%;
-  }
 }
 
 #player-1-name,
@@ -649,14 +632,9 @@ h2 {
 }
 .board-container {
   border-color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(0.5rem);
   box-shadow: 0 0 1rem 1rem rgba(0, 0, 0, 0.1);
   border-radius: 0.2rem;
 }
 .cell {
   border-color: rgba(255, 255, 255, 0.8);
-}
-.ships-container {
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(0.5rem);
 }
