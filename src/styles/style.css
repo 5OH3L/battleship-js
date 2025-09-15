@@ -313,7 +313,7 @@ h2 {
 }
 #message {
   color: white;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
   height: 50dvh;
   width: 70dvh;
   border: 2px solid rgba(255, 255, 255, 0.9);
