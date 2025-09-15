@@ -84,6 +84,10 @@ h2 {
 #container:not(.computer).game-started .board-container > .cell.shot::after {
   opacity: 1;
 }
+#container:not(.computer).game-started .board-container > .cell.shot.ship::before,
+#container:not(.computer).game-started .board-container > .cell.shot.ship::after {
+  background-color: red;
+}
 #container:not(.computer).game-started > main > #player-1-container > #player-1-board > .cell.shot.ship,
 #container:not(.computer).game-started > main > #player-2-container > #player-2-board > .cell.shot.ship {
   background-color: rgba(255, 0, 0, 0.5);
@@ -108,6 +112,10 @@ h2 {
 #container.computer.game-started .board-container > .cell.shot::after {
   opacity: 1;
 }
+#container.computer.game-started .board-container > .cell.shot.ship::before,
+#container.computer.game-started .board-container > .cell.shot.ship::after {
+  background-color: red;
+}
 #container.computer.game-started > main > #player-1-container > #player-1-board > .cell.shot.ship,
 #container.computer.game-started > main > #player-2-container > #player-2-board > .cell.shot.ship {
   background-color: rgba(255, 0, 0, 0.5);
@@ -119,7 +127,7 @@ h2 {
   content: "";
   height: 90%;
   width: 10%;
-  background-color: red;
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 0.4rem;
   opacity: 0;
   z-index: 10;
